@@ -2,19 +2,23 @@
 
 const deepEqual = require('deep-equal');
 
-module.exports = (prev = []) => (obj) => {
+module.exports = ({ prev = [], validate, moduleName = 'Untitled module' } = {}) => (obj) => {
   let result;
 
-  if (obj != null) {
-    result = prev.find((item) => deepEqual(item, obj));
-  }
+  result = prev.find((item) => deepEqual(item, obj));
 
   if (result) {
     return result;
   } else {
-    if (obj != null) {
-      prev.push(obj);
+    if (validate) {
+      const errors = validate(obj)
+
+      if (errors && errors.length) {
+        throw new Error(`Argument for "${moduleName}" is invalid: ${errors.join(', ')}`)
+      }
     }
+
+    prev.push(obj);
 
     return obj;
   }
