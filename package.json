@@ -1,6 +1,6 @@
 {
   "name": "deep-equal-resolver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Use deep equal to determine",
   "main": "index.js",
   "scripts": {
